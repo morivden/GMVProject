@@ -3,10 +3,10 @@ package com.example.gmvproject;
 /**
  * Created by マグネシウム on 2016/11/02.
  */
-/*
+
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-    private static final long DRAW_INTERVAL = 1000 / 100;
+    private static final long DRAW_INTERVAL = 1000 / 100;  // 描画間隔
 
     private class DrawThread extends Thread {
         private final AtomicBoolean isFinished = new AtomicBoolean(false);
@@ -35,7 +35,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 if (canvas == null) {
                     continue;
                 }
-
+                player.move();
                 drawGame(canvas);
 
                 holder.unlockCanvasAndPost(canvas);
@@ -86,30 +86,26 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         stopDrawThread();
     }
 
+    private Player player;
+
     public GameView(Context context) {
         super(context);
+        player = new Player(100, 100, 200, 200);
 
-        droidBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.droid);
-        droid = new Droid(droidBitmap, 0, 0, droidCallback);
 
         getHolder().addCallback(this);
     }
 
 
     private void drawGame(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.GRAY);
 
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
-
-        if (ground == null) {
-            int top = height - GROUND_HEIGHT;
-            ground = new Ground(0, top, width, height);
-        }
-        droid.move();
-        ground.move(GROUND_MOVE_TO_LEFT);
-        droid.draw(canvas);
-        ground.draw(canvas);
+        /* 以下に描画処理を記述 */
+        player.draw(canvas);
     }
 }
-*/
+
+/*
+test
+test
+ */
