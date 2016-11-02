@@ -13,16 +13,8 @@ public class GMVActive extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmvactive);
 
-        setContentView(R.layout.test);
-
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                button.setText("ABC");
-            }
-        });
-
+        GameView gameview = new GameView(this);
+        setContentView(gameview);
     }
     // test
     // console git test
