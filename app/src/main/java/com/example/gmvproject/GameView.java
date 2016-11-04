@@ -106,7 +106,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawColor(Color.WHITE);
 
         /* 以下に描画処理を記述 */
-        player.draw(canvas);
     }
 }
 
