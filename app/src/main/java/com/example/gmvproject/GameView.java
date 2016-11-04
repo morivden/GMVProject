@@ -5,6 +5,8 @@ package com.example.gmvproject;
  */
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.SurfaceHolder;
@@ -90,15 +92,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context) {
         super(context);
-        player = new Player(100, 100, 200, 200);
 
+        SurfaceHolder holder = getHolder();
+        Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.tmp_image01);
 
-        getHolder().addCallback(this);
+        player = new Player(image, 100, 100);
+
+        holder.addCallback(this);
     }
 
 
     private void drawGame(Canvas canvas) {
-        canvas.drawColor(Color.GRAY);
+        canvas.drawColor(Color.WHITE);
 
         /* 以下に描画処理を記述 */
         player.draw(canvas);
