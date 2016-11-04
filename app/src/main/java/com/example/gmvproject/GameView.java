@@ -37,7 +37,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 if (canvas == null) {
                     continue;
                 }
-                player.move();
+
                 drawGame(canvas);
 
                 holder.unlockCanvasAndPost(canvas);
@@ -106,6 +106,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawColor(Color.WHITE);
 
         /* 以下に描画処理を記述 */
+        player.draw(canvas);
     }
 }
 
