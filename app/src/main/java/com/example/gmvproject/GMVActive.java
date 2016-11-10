@@ -13,8 +13,8 @@ public class GMVActive extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmvactive);
 
-        GameView gameview = new GameView(this);
-        setContentView(gameview);
+        TitleView tv = new TitleView(this);
+        setContentView(tv);
     }
     // test
     // console git test
