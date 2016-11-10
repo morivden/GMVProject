@@ -16,8 +16,8 @@ public class GMVActive extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_gmvactive);
 
-        GameView gameview = new GameView(this);
-        setContentView(gameview);
+        TitleView tv = new TitleView(this);
+        setContentView(tv);
     }
     // test
     // console git test
