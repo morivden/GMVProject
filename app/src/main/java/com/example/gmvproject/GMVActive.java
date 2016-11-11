@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 public class GMVActive extends Activity {
     Button button;
 
-    FrameLayout viewList = new FrameLayout(this);
+    FrameLayout viewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class GMVActive extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_gmvactive);
 
+        viewList = new FrameLayout(this);
         TitleView tv = new TitleView(this);
         viewList.addView(tv);
         setContentView(viewList);
