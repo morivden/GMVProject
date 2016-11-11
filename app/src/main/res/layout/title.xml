@@ -4,14 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#adfbff"
+    android:background="#ffffff"
     android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:id="@+id/imageView"
-        android:src="@drawable/_sa" />
+        android:src="@drawable/tmp_title" />
 
     <Button
         android:id="@+id/btn_push"

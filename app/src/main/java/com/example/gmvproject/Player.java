@@ -5,12 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.FrameLayout;
 
 /**
  * Created by YU-YA on 2016/11/02.
  */
 
 public class Player {
+
+
+
 
     private Bitmap image;   // キャラクター画像
     private static final int IMAGE_SIZE = 100;  // 描画時の画像サイズ
