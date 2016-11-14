@@ -2,31 +2,27 @@ package com.example.gmvproject;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.widget.FrameLayout;
 
 /**
- * Created by YU-YA on 2016/11/02.
+ * Created by YU-YA on 2016/11/04.
  */
 
-public class Player {
+public class Ground {
 
-    private Bitmap image;   // キャラクター画像
-    private static final int IMAGE_SIZE = 100;  // 描画時の画像サイズ
-    private Rect srcRect;   // 描画元領域の矩形
-    private Rect locRect;   // 描画先領域の矩形
+    private Rect srcRect;  // 描画元領域の矩形
+    private Rect locRect;  // 描画先領域の矩形
+    private Bitmap image;  // 地面画像
 
-    private static final Paint PAINT;
-    private static final int MOVE_RIGHT_SPEED = 0;
-    static { PAINT = new Paint();  PAINT.setColor(Color.RED); }
+    private static final Paint paint;
+    static { paint = new Paint(); }
 
 
     //======================================================================================
     //--  コンストラクタ
     //======================================================================================
-    public Player(Bitmap bitmap, int left, int top) {
+    public Ground(Bitmap bitmap, int left, int top, int right, int bottom) {
         //---- 画像関連
         this.image = bitmap;
         //-- 画像サイズの格納
@@ -34,20 +30,21 @@ public class Player {
         int height = bitmap.getHeight();
         //-- 描画用矩形の作成
         this.srcRect = new Rect(0, 0, width, height);
-        this.locRect = new Rect(left, top, left + this.IMAGE_SIZE, top + this.IMAGE_SIZE);
+        this.locRect = new Rect(left, top, right, bottom);
     }
 
     //======================================================================================
-    //--  Playerクラス描画用メソッド
+    //--  描画メソッド
     //======================================================================================
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(this.image, this.srcRect, this.locRect, this.PAINT);
+        canvas.drawBitmap(image, srcRect, locRect, paint);
     }
 
     //======================================================================================
-    //--  Playerクラス移動用メソッド (仮)
+    //--  描画位置変更メソッド
     //======================================================================================
-    public void move() {
-        this.locRect.offset(this.MOVE_RIGHT_SPEED, 0);
+    public void setLocation(int left, int top, int right, int bottom) {
+        this.srcRect.set(left, top, right, bottom);
+        this.locRect.set(left, top, right, bottom);
     }
 }

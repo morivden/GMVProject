@@ -32,6 +32,7 @@ public class TitleView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 buttonPush.setText("スタート画面に移動したよ!!");
+                tvCallback.switchStartView();
             }
         });
     }

@@ -34,7 +34,21 @@ public class StartView extends FrameLayout {
             public void onClick(View v)
             {
                 buttonPush.setText("ボタンが押されたお！");
+                svCallback.switchGameView();
             }
         });
+    }
+
+    //======================================================================================
+    //--  Callback関連
+    //======================================================================================
+    private StartViewCallback svCallback;
+
+    public interface StartViewCallback {
+        void switchGameView();
+    }
+
+    public void setStartViewCallback(StartViewCallback svCallback) {
+        this.svCallback = svCallback;
     }
 }
