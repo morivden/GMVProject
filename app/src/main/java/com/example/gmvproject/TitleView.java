@@ -35,4 +35,17 @@ public class TitleView extends FrameLayout {
             }
         });
     }
+
+    //======================================================================================
+    //--  Callback関連
+    //======================================================================================
+    private TitleViewCallback tvCallback;
+
+    public interface TitleViewCallback {
+        void switchStartView();
+    }
+
+    public void setTitleViewCallback(TitleViewCallback tvCallback) {
+        this.tvCallback = tvCallback;
+    }
 }
