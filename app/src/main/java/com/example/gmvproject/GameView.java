@@ -117,6 +117,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private void drawGame(Canvas canvas) {
 
+        canvas.drawColor(Color.WHITE);
+
         // ステージの初期化
         if ( ground == null ) {
             int width = canvas.getWidth();
