@@ -11,8 +11,24 @@ import android.widget.FrameLayout;
 
 
 public class GMVActive extends Activity implements TitleView.TitleViewCallback, StartView.StartViewCallback {
+    Button button;
 
     FrameLayout viewList;
+
+    @Override
+    public void onChangeStartview() {
+        viewList.removeAllViews();
+        StartView sv = new StartView(this);
+        sv.setCallback(this);
+        viewList.addView(sv);
+    }
+
+    @Override
+    public void onChangeGameview() {
+        viewList.removeAllViews();
+        GameView gv = new GameView(this);
+        viewList.addView(gv);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,32 +37,9 @@ public class GMVActive extends Activity implements TitleView.TitleViewCallback, 
 
         viewList = new FrameLayout(this);
         TitleView tv = new TitleView(this);
-        tv.setTitleViewCallback(this);
         viewList.addView(tv);
+        tv.setCallback(this);
+
         setContentView(viewList);
-    }
-
-    @Override
-    public void switchStartView() {
-        int viewCnt;  // 格納されているViewの数
-        StartView sv = new StartView(this);
-        sv.setStartViewCallback(this);
-        viewList.addView(sv);  // 追加
-
-        if ( (viewCnt = viewList.getChildCount()) > 1 ) {   // 削除
-            viewList.removeViews(0, viewCnt-1);
-        }
-    }
-
-    @Override
-    public void switchGameView() {
-        int viewCnt;  // 格納されているViewの数
-        GameView gv = new GameView(this);
-
-        viewList.addView(gv);  // 追加
-
-        if ( (viewCnt = viewList.getChildCount()) > 1 ) {   // 削除
-            viewList.removeViews(0, viewCnt-1);
-        }
     }
 }

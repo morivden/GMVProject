@@ -17,6 +17,15 @@ public class StartView extends FrameLayout {
     private Button buttonPush;        // 押された後のボタン
     private LayoutInflater inflater;
     private View rootView;
+    private StartViewCallback startViewCallback;
+
+    public interface StartViewCallback {
+        void onChangeGameview();
+    }
+
+    public void setCallback(StartViewCallback callback) {
+        startViewCallback = callback;
+    }
 
 
     public StartView(Context context) {
@@ -33,22 +42,9 @@ public class StartView extends FrameLayout {
             @Override
             public void onClick(View v)
             {
-                buttonPush.setText("ボタンが押されたお！");
-                svCallback.switchGameView();
+                startViewCallback.onChangeGameview();
             }
         });
     }
 
-    //======================================================================================
-    //--  Callback関連
-    //======================================================================================
-    private StartViewCallback svCallback;
-
-    public interface StartViewCallback {
-        void switchGameView();
-    }
-
-    public void setStartViewCallback(StartViewCallback svCallback) {
-        this.svCallback = svCallback;
-    }
 }
