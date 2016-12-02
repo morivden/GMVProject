@@ -17,6 +17,15 @@ public class TitleView extends FrameLayout {
     private ImageView backgroundImage;
     private LayoutInflater inflater;
     private View rootView;
+    private TitleViewCallback titleViewCallback;
+
+    public interface TitleViewCallback {
+        void onChangeStartview();
+    }
+
+    public void setCallback(TitleViewCallback callback) {
+        titleViewCallback = callback;
+    }
 
     public TitleView(Context context) {
         super(context);
@@ -31,7 +40,7 @@ public class TitleView extends FrameLayout {
         this.buttonPush.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonPush.setText("スタート画面に移動したよ!!");
+                titleViewCallback.onChangeStartview();
             }
         });
     }
