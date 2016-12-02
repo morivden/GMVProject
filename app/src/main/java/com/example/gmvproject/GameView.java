@@ -9,12 +9,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+
+    private Player player;  // 自機
+
+    private Ground ground;  // ステージ
+    private Bitmap groundImage;  // ステージ用画像
 
     private static final long DRAW_INTERVAL = 1000 / 100;  // 描画間隔
 
@@ -80,6 +86,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceChanged(
             SurfaceHolder holder, int format, int width, int height) {
+        System.out.println("draw");
         startDrawThread();
     }
 
@@ -88,25 +95,42 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         stopDrawThread();
     }
 
-    private Player player;
-
     public GameView(Context context) {
         super(context);
 
         SurfaceHolder holder = getHolder();
         Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.tmp_image01);
 
-        player = new Player(image, 100, 100);
+        this.player = new Player(image, 100, 100);
+
+        this.groundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.tmp_image01);
 
         holder.addCallback(this);
+
+        // 背景色の設定
+        setBackgroundColor(Color.rgb(255,255,255));
+        //ビューの背景を透過させる
+        getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        //最前面に描画する
+        setZOrderOnTop(true);
     }
 
-
     private void drawGame(Canvas canvas) {
+
         canvas.drawColor(Color.WHITE);
 
+        // ステージの初期化
+        if ( ground == null ) {
+            int width = canvas.getWidth();
+            int height = canvas.getHeight();
+            int groundHeight = height/3;
+            this.ground = new Ground(this.groundImage, 0, height-groundHeight, width, height);
+        }
+
         /* 以下に描画処理を記述 */
-        player.draw(canvas);
+        this.player.draw(canvas);  // 自機の描画
+
+        this.ground.draw(canvas);  // ステージの描画
     }
 }
 

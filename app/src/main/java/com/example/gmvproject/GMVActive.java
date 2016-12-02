@@ -2,6 +2,8 @@ package com.example.gmvproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.app.Activity;
 import android.view.Window;
@@ -32,7 +34,6 @@ public class GMVActive extends Activity implements TitleView.TitleViewCallback, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_gmvactive);
 
         viewList = new FrameLayout(this);
         TitleView tv = new TitleView(this);
@@ -40,10 +41,5 @@ public class GMVActive extends Activity implements TitleView.TitleViewCallback, 
         tv.setCallback(this);
 
         setContentView(viewList);
-
-        //StartView sv = new StartView(this);
     }
-    // test
-    // console git test
-    // takumi test
 }
