@@ -18,7 +18,6 @@ public class Ground {
     private static final Paint paint;
     static { paint = new Paint(); }
 
-
     //======================================================================================
     //--  コンストラクタ
     //======================================================================================
@@ -46,5 +45,10 @@ public class Ground {
     public void setLocation(int left, int top, int right, int bottom) {
         this.srcRect.set(left, top, right, bottom);
         this.locRect.set(left, top, right, bottom);
+    }
+
+    //+ locRectの取得
+    public Rect getLocRect() {
+        return locRect;
     }
 }
