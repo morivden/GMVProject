@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+//+
+import android.view.MotionEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -23,6 +25,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap groundImage;  // ステージ用画像
 
     private static final long DRAW_INTERVAL = 1000 / 100;  // 描画間隔
+
+    //+ コールバックインタフェースの実装
+    private final Player.FallCallback playercallback = new Player.FallCallback() {
+        @Override
+        public int getDistanceFromGround(Player player) {
+
+            return ground.getLocRect().top - player.getLocRect().bottom;
+        }
+    };
 
     private class DrawThread extends Thread {
         private final AtomicBoolean isFinished = new AtomicBoolean(false);
@@ -101,7 +112,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         SurfaceHolder holder = getHolder();
         Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.tmp_image01);
 
-        this.player = new Player(image, 100, 100);
+        this.player = new Player(image, 100, 100, playercallback);
 
         this.groundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.tmp_image01);
 
@@ -127,10 +138,45 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             this.ground = new Ground(this.groundImage, 0, height-groundHeight, width, height);
         }
 
+        //+ プレイヤーの落下
+        this.player.move();
+
         /* 以下に描画処理を記述 */
         this.player.draw(canvas);  // 自機の描画
 
         this.ground.draw(canvas);  // ステージの描画
+
+    }
+
+    //+ タッチ、ジャンプ処理
+    private static final long MAX_TOUCH_TIME = 500;
+    private long touchDownStartTime;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            //+ 指が触れたとき
+            case MotionEvent.ACTION_DOWN:
+                touchDownStartTime = System.currentTimeMillis();
+                return true;
+            //+ 指が離れたとき
+            case MotionEvent.ACTION_UP:
+                float time = System.currentTimeMillis() - touchDownStartTime;
+                jumpPlayer(time);
+                touchDownStartTime = 0;
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
+    //+ jumpPlayerメソッド
+    private void jumpPlayer(float time) {
+        //+ 自機と地面が離れている間は実行しない
+        if (playercallback.getDistanceFromGround(player) > 0) {
+            return;
+        }
+
+        player.jump(Math.min(time, MAX_TOUCH_TIME) / MAX_TOUCH_TIME);
     }
 }
 
