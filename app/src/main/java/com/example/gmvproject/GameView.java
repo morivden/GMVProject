@@ -89,6 +89,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private Player player;
+    private Enemy enemy;
 
     public GameView(Context context) {
         super(context);
@@ -97,6 +98,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.tmp_image01);
 
         player = new Player(image, 100, 100);
+        enemy = new Enemy(image, 300, 300);
 
         holder.addCallback(this);
     }
@@ -107,6 +109,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         /* 以下に描画処理を記述 */
         player.draw(canvas);
+        enemy.draw(canvas);
     }
 }
 

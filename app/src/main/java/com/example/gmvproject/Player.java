@@ -15,7 +15,6 @@ public class Player {
 
 
 
-
     private Bitmap image;   // キャラクター画像
     private static final int IMAGE_SIZE = 100;  // 描画時の画像サイズ
     private Rect srcRect;   // 描画元領域の矩形
